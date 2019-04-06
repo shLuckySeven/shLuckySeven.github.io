@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="定位,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="开篇 由于工作中涉及到地图开发，所以业余时间找了很多关于地图和定位方面的技术博客和书籍，发现定位功能涉及到很广的知识深度，所以，闲暇之余，做一个简单的笔记，表示对定位技术的敬仰！  无GPS模块，定位是如何实的？大家都知道iPod Touch是没有电话和GPS模块的, 那么它是如何实现定位的呢?其实它使用的是Wi-Fi定位技术,其原理与基站定位类似: 1.每一个无线AP都有一个全球唯一的MAC地址">
+<meta name="keywords" content="定位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析无线定位技术">
+<meta property="og:url" content="http://www.shuhuan.fun/2014/06/06/浅析无线定位技术/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="开篇 由于工作中涉及到地图开发，所以业余时间找了很多关于地图和定位方面的技术博客和书籍，发现定位功能涉及到很广的知识深度，所以，闲暇之余，做一个简单的笔记，表示对定位技术的敬仰！  无GPS模块，定位是如何实的？大家都知道iPod Touch是没有电话和GPS模块的, 那么它是如何实现定位的呢?其实它使用的是Wi-Fi定位技术,其原理与基站定位类似: 1.每一个无线AP都有一个全球唯一的MAC地址">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-47dcb99ccc00e333.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/359">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-a7adeb75451229df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/630">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-4523356fea440e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/647">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-b371d29e0f90da3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/298">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-0d0d3642f80547d2.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/359">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-a379243b8d1bbfcf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-1945ed550a250edf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/960">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-9bd44d4db35ce1f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/727">
+<meta property="og:updated_time" content="2019-04-06T15:46:38.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析无线定位技术">
+<meta name="twitter:description" content="开篇 由于工作中涉及到地图开发，所以业余时间找了很多关于地图和定位方面的技术博客和书籍，发现定位功能涉及到很广的知识深度，所以，闲暇之余，做一个简单的笔记，表示对定位技术的敬仰！  无GPS模块，定位是如何实的？大家都知道iPod Touch是没有电话和GPS模块的, 那么它是如何实现定位的呢?其实它使用的是Wi-Fi定位技术,其原理与基站定位类似: 1.每一个无线AP都有一个全球唯一的MAC地址">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1707644-47dcb99ccc00e333.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/359">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2014/06/06/浅析无线定位技术/">
+
+
+
+
+
+  <title>浅析无线定位技术 | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2014/06/06/浅析无线定位技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析无线定位技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-06-06T23:22:01+08:00">
+                2014-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/地图/" itemprop="url" rel="index">
+                    <span itemprop="name">地图</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><blockquote>
+<p>由于工作中涉及到地图开发，所以业余时间找了很多关于地图和定位方面的技术博客和书籍，发现定位功能涉及到很广的知识深度，所以，闲暇之余，做一个简单的笔记，表示对定位技术的敬仰！</p>
+</blockquote>
+<h3 id="无GPS模块，定位是如何实的？"><a href="#无GPS模块，定位是如何实的？" class="headerlink" title="无GPS模块，定位是如何实的？"></a>无GPS模块，定位是如何实的？</h3><p>大家都知道iPod Touch是没有电话和GPS模块的, 那么它是如何实现定位的呢?<br>其实它使用的是Wi-Fi定位技术,其原理与基站定位类似:</p>
+<p>1.每一个无线AP都有一个全球唯一的MAC地址,并且一般来说无线AP在一段时间内是不会移动的</p>
+<p>2.设备在开启Wi-Fi的情况下,即可扫描并收集周围的AP信号,无论是否加密,是否已连接，甚至信号强度不足以显示在无线信号列表中,都可以获取到AP广播出来的MAC地址</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-47dcb99ccc00e333.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/359" alt="图1-1"></p>
+<p>3.设备将这些能够标示AP的数据发送到位置服务器,服务器检索出每一个AP的地理位置,并结合每个信号的强弱程度,计算出设备的地理位置并返回到用户设备</p>
+<p>4.位置服务商要不断更新、补充自己的数据库,以保证数据的准确性,毕竟无线AP不像基站塔那样基本100%不会移动<br><img src="https://upload-images.jianshu.io/upload_images/1707644-a7adeb75451229df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/630" alt="图1-2"></p>
+<p><code>这样的位置服务商现在来说只有Skyhook和Google两家.他们收集位置数据的方式也是相似的</code></p>
+<p>1.主动采集:Google的街景拍摄车还有一个重要的功能就是采集沿途的无线信号,并打上通过GPS定位出的坐标回传至服务器;</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-4523356fea440e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/647" alt="图1-3"></p>
+<p>Skyhook在美国及欧洲一些国家也是直接开着信号采集车采集AP和基站的信号数据,相对来说覆盖城市没有Google多，目前中国仅有少数城市有覆盖，并且他们在包括中国在内的多个国家招募有偿工作者，以协助Skyhook收集位置数据。当然你也可以直接在其网站上提交一个MAC地址。</p>
+<p>2.用户提交: 通常是以静默方式向同时拥有Wi-Fi和GPS的终端用户收集位置数据</p>
+<p>Android手机用户在开启“使用无线网络定位”时会提示是否允许Google的定位服务手机匿名地点数据;</p>
+<p>同样的Skyhook的最大客户Apple也在iPhone的User Guide中说明会以不能识别用户身份的方式收集位置数据。<br><img src="https://upload-images.jianshu.io/upload_images/1707644-b371d29e0f90da3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/298" alt="图1-4"></p>
+<p>使用这种方式定位一般来说需要与位置服务器进行即时的网络交互，Android正是如此，最好的证明就是关闭电话和GPS后，单单打开Wifi但不连接任何一个无线网络或者连接一个没有接入互联网的网络时，是无法进行定位的。实际测试的时候，发现这种情况下部分软件仍然可以定位，但是无论将设备移动到哪里，应用中的位置始终不会变化。因为Android的API中提供的方法是LocationManager.getLastKnownPosition，只要是通过这种方式获取到的位置数据，Android是不会立即定位的，而是将最后一次定位的数据返回给应用，除非应用发起更新位置的请求。</p>
+<p>但是正是在网络交互这一点上，Apple让人觉得不可思议。前几天在touch上安装了一款地图软件,并下载了离线地图,因为touch不接入WLAN是没有其他办法联网的,有了离线地图会方便很多.一次外出时,打开地图竟发现,没有连接任何无线网络的情况下,touch竟然准确地标出了我的位置,走了几步发现地图上的标记也准确地移动到了新的坐标.但是系统自带的Google Map及部分网络软件都无法定位。</p>
+<p>我们知道通过无线可以定位，但是Touch是如何做到在没有网络交互的情况下定位？</p>
+<p>一开始我猜测是离线地图中包含位置元数据，地图应用自行收集环境信息进行定位测算，测试如下：</p>
+<p>将该地图应用卸载，重新安装，安装成功后第一次打开前即断开Wi-Fi连接（不关闭），然后打开地图应用，定位成功，只不过地图无任何显示</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-0d0d3642f80547d2.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/359" alt="图1-5"></p>
+<p>是不是很离奇呢，也就是说并不是离线地图的功能，难道是…iOS？</p>
+<p>为此我做了个简单的实验，Safari是支持HTML5的，于是我想到了GeoLocation API：</p>
+<p>javascript:navigator.geolocation.getCurrentPosition(function(position){alert(position.coords.latitude+”\n”+position.coords.longitude);},function(err){alert(err.code)});</p>
+<p>先完全退出Safari，然后打开，直接将这段js敲进地址栏访问，如果成功获取到位置信息，就显示出经纬度，否则显示错误码</p>
+<p>测试结果如下：</p>
+<blockquote>
+<p>开启wifi不连接任何网络（随着移动，坐标会变）</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-a379243b8d1bbfcf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000" alt="图1-6"></p>
+<blockquote>
+<p>关闭wifi（无论怎么移动始终是同一个坐标，后来在地图软件中测试也是如此）</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-1945ed550a250edf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/960" alt="图1-7"></p>
+<p>可以看出，在开启Wi-Fi而不连接网络的情况下，iOS仍然何以提供定位服务，而关闭Wi-Fi后其实跟Android无网络的情况相同，不是实时的定位</p>
+<p>实验至此，基本上可以确定，是iOS缓存了历史地点及附近一定范围内的位置数据（并且范围不小，因为曾经去到一个从未去过的10公里外的度假村，无连接状态仍然成功定位）位置的计算直接在本机进行。</p>
+<p>PS：其实还有一点挺困惑的，内置的Google Map为什么不能定位呢？难道是因为Google用自己的服务而不用与Apple合作的Skyhook的服务吗(Google Map在已有地图缓存的情况下定位时有与Google服务器交互的数据包，但不能断定就一定是用于定位的数据)？再者，GoogleMap在定位时状态栏会显示系统的定位服务图标，表明调用了系统Api，却始终无法定位。</p>
+<p>既然谈到HTML5定位,必然不能不提桌面浏览器，目前主流的浏览器都已经支持HTML5。W3C所提出的Geolocation API是个访问地理位置信息的高层接口，该接口与实现设备紧密相关，API本身对下面的位置信息一无所知。常见的位置信息来源主要包GPS、IP、RFID、AP MAC、cell ID等。那么它的定位效果如何呢？</p>
+<p>测试结果如下：(Dell E4300/Ubuntu 10.10 32bit/FF6.0 &amp; Chrome15dev)</p>
+<p>无线开启、任意联网状态：较准确的定位、且坐标有波动</p>
+<p>无线开启、不联网：无法定位</p>
+<p>无线关闭、有线联网：可定位、偏差较远、始终是同一个坐标</p>
+<p>无线关闭、不联网：无法定位</p>
+<p>第一种：只要无线开关是打开的，周围有无线网络，不管是否连接无线网络、是否是通过无线接入互联网，只要可以接入互联网即可进行准确定位</p>
+<p>第三种：应该是通过IP定位</p>
+<p>第二、四种：无法连接位置服务器，故无法定位（如果能定位就超神了~）</p>
+<p>下面的图可以体现定位时的网络交互（测试时无其他任何网络活动）</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-9bd44d4db35ce1f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/727" alt="图1-8"></p>
+<p>检索下IP即可得知是Google的位置服务 。好在W3C标准要求浏览器争得用户同意后才可提供数据给第三方网站，否则要天下大乱了。。。</p>
+<p>无线AP的覆盖面越来越广，在美国城市基本上地面上任意一点都有3个以上的无线网络覆盖，国内大中城市也紧跟步伐，无线网络变得越来越密集，以此种方式定位成本低，速度快，如果能将精确度提高到10M，相信大多GPS都要下岗了，只要有无线网络环境，对比GPS有绝对的优势，还不会受天气和建筑物的影响。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/定位/" rel="tag"># 定位</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/26/Http状态码介绍（最全）/" rel="prev" title="5分钟看完，告诉你Http那么多状态码都是什么意思（技巧篇）">
+                5分钟看完，告诉你Http那么多状态码都是什么意思（技巧篇） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开篇"><span class="nav-number">1.</span> <span class="nav-text">开篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无GPS模块，定位是如何实的？"><span class="nav-number">1.1.</span> <span class="nav-text">无GPS模块，定位是如何实的？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="底层原理,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="hi，I’m shuhuan，我的技术博客风格：简约、易理解，不花哨，花最少的时间掌握理解更多的知识点!  文章开篇，先介绍下本篇博客主要介绍的内容：目录  什么是kvo kvo的使用场景 kvo的使用方法 kvo的底层原理 kvo如何简单添加对多个属性的监听 kvo使用需要注意的坑 …… 持续更新    什么是KVO？kvo其实是我们iOS开发中，苹果提供给我们的一个特别重要而且常用的核心技术，">
+<meta name="keywords" content="底层原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最不花里胡哨的KVO博客，一看就懂">
+<meta property="og:url" content="http://www.shuhuan.fun/2019/04/06/KVO讲解/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="hi，I’m shuhuan，我的技术博客风格：简约、易理解，不花哨，花最少的时间掌握理解更多的知识点!  文章开篇，先介绍下本篇博客主要介绍的内容：目录  什么是kvo kvo的使用场景 kvo的使用方法 kvo的底层原理 kvo如何简单添加对多个属性的监听 kvo使用需要注意的坑 …… 持续更新    什么是KVO？kvo其实是我们iOS开发中，苹果提供给我们的一个特别重要而且常用的核心技术，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-06T15:46:38.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最不花里胡哨的KVO博客，一看就懂">
+<meta name="twitter:description" content="hi，I’m shuhuan，我的技术博客风格：简约、易理解，不花哨，花最少的时间掌握理解更多的知识点!  文章开篇，先介绍下本篇博客主要介绍的内容：目录  什么是kvo kvo的使用场景 kvo的使用方法 kvo的底层原理 kvo如何简单添加对多个属性的监听 kvo使用需要注意的坑 …… 持续更新    什么是KVO？kvo其实是我们iOS开发中，苹果提供给我们的一个特别重要而且常用的核心技术，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2019/04/06/KVO讲解/">
+
+
+
+
+
+  <title>最不花里胡哨的KVO博客，一看就懂 | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2019/04/06/KVO讲解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最不花里胡哨的KVO博客，一看就懂</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:54:33+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>hi，I’m shuhuan，我的技术博客风格：简约、易理解，不花哨，花最少的时间掌握理解更多的知识点!</strong> </p>
+<h2 id="文章开篇，先介绍下本篇博客主要介绍的内容："><a href="#文章开篇，先介绍下本篇博客主要介绍的内容：" class="headerlink" title="文章开篇，先介绍下本篇博客主要介绍的内容："></a>文章开篇，先介绍下本篇博客主要介绍的内容：</h2><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
+<ul>
+<li>什么是kvo</li>
+<li>kvo的使用场景</li>
+<li>kvo的使用方法</li>
+<li>kvo的底层原理</li>
+<li>kvo如何简单添加对多个属性的监听</li>
+<li>kvo使用需要注意的坑</li>
+<li>…… 持续更新</li>
+</ul>
+</blockquote>
+<ol>
+<li>什么是KVO？<br>kvo其实是我们iOS开发中，苹果提供给我们的一个特别重要而且常用的核心技术，只是大多数简单业务开发的时候可能并不常用，但是但凡涉及到代码库的封装，或者工具类的封装，稍微高层次点的开发，就会涉及到kvo，那么kvo是什么？<blockquote>
+<p>kvo 其实就是： k - v - o </p>
+</blockquote>
+</li>
+</ol>
+<p>看到这有木有想打我？<br>别着急，往下看，老铁</p>
+<h5 id="K"><a href="#K" class="headerlink" title="K"></a>K</h5><blockquote>
+<p>k就是Key，我们开发再常用不过的小可爱，字典、hash、通知、CAAnimation等，到处都用，我们把它理解成一个“唯一标识”，用一个标识，去替代它的身份，方便在它藏身的地方找到它</p>
+</blockquote>
+<p>举个栗子：<br>我们熟知的 “工号9527”的那个录音笑话，您好，我是9527，很高兴为您服务……<br>也就是说这个9527，在客服的系统里，它是代表一个人，这个人比如叫：扫地僧,扫地僧是他的真实姓名，每个客服人员都有自己对应的被投诉的记录record，每被投诉一次，record就+1，以下要用到，但是他们对外服务并不使用自己的名字，多方面原因：方便客服系统管理、方便对外简易称呼（客户才不会动脑筋去记住那么多客服的名字）、客服人员的隐私等等，那么这个 9527 就是 这个扫地僧的“ Key”，这个key要保证在整个客服系统里面是唯一的，不然客户投诉，客服系统有两个9527，那该找谁呢，往下就不用我继续说了，key就是一个别名，但唯一，方便容器管理和查找。</p>
+<h5 id="V"><a href="#V" class="headerlink" title="V"></a>V</h5><blockquote>
+<p>v就是Value，就是值的意思，每个key对应一个Value，Value可以根据需求和场景选择类型：int、NSNumber、NSString、id等等<br>kvo模式里value就是我们某个类的某个属性<br>以上的例子中，扫地僧的record，便是Value了，所以有如下对应关系：<br>key: 9527 – Value: record</p>
+</blockquote>
+<h5 id="O"><a href="#O" class="headerlink" title="O"></a>O</h5><blockquote>
+<p>o就是Observing（观察者），好了，到这，基本就有kvo的概念的雏形了<br>那么这个O，便是我上面例子中说的这个投诉的客户，他要监管或者能实时知晓这个工号（Key）为9527的员工扫地僧的record（Value），看看自己的投诉到底生效没，实时知晓这个词用的简直太灵性了</p>
+</blockquote>
+<p>KVO概念总结：客户投诉Key为：9527这位客服，他要“实时知晓”9527的value：record是否真的改变，record的改变，客服系统会实时通知到这位客户系统对9527的record的判罚情况，这就是kvo的概念，一句话：observer对一个Key的Value的改变的实时监听，<br>也就是说：kvo是“键值监听”，可以用于监听某个对象属性值的改变</p>
+<p><code>注：我以上举的例子可能不太完全恰当，只是当时脑子第一时间想到9527的笑话，想着让读者更加容易理解，所以，较真的宝贝们不要和我较真就好了，谢谢理解！</code></p>
+<ol start="2">
+<li><p>KVO的使用场景<br>说起使用场景，这个味道简直太浓太上头了，那么既然kvo这么神奇，那么我们在开发中，什么时候才会使用kvo呢？<br>这个主要看自己开发中的业务场景，比如我们要在某个类A，去监听引用进来的类B的某个属性值的变化，这个属性的变化改变后我们需要A类做出一些反应。例如Model类B的age属性，我们初始化在类A的lable上显示了这个age为10，结果这个age在某些时候改变了，那么用KVO监听这个age的变化，A作为监听者observer，就可以随时知道age的改变从而让A类的那个lable快速直接做出变化，而不用去A.lable.text =xxx重新赋值<br>比如：监听scrollView的contentOffset属性，来完成用户滚动时动态改变某些控件的属性实现效果，包括渐变导航栏、下拉刷新控件等效果。<br>除此之外KVO还可以监听更多业务场景，在这里就不多说</p>
+</li>
+<li><p>KVO的使用</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    Person *p1 = [[Person alloc] init];</span><br><span class="line">    p1.age = 2;</span><br><span class="line">    // self 监听 p1的 age属性，这里的self我们就可以理解为上述例子中的“客户”</span><br><span class="line">    NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;</span><br><span class="line"></span><br><span class="line">    [p1 addObserver:self forKeyPath:@&quot;age&quot; options:options context:nil];</span><br><span class="line">    p1.age = 10;</span><br><span class="line">    [p1 removeObserver:self forKeyPath:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;监听到%@的%@改变了%@&quot;, object, keyPath,change);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印内容</span><br><span class="line">监听到&lt;Person: 0x604000205460&gt;的age改变了&#123;</span><br><span class="line">    kind = 1;</span><br><span class="line">    new = 10;</span><br><span class="line">    old = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中可以看到，在给p1对象添加监听之后，age属性的值在发生改变时，就会通知到监听者，执行监听者的observeValueForKeyPath方法，当然这里我们是在同一个类里做的改变值演示，节目效果目的，真正使用kvo多数情况是跨类改变和监听的</p>
+<p>参数和方法概念介绍：</p>
+<blockquote>
+<ul>
+<li>NSKeyValueObservingOptions：监听策略，以上代码为新值和旧值都监听</li>
+<li>removeObserver: 记得监听完事一定要移除</li>
+<li>(void)observeValueForKeyPath: 值改变的回调方法</li>
+<li>change:监听对象的具体值情况</li>
+</ul>
+</blockquote>
+<p>4.KVO的底层原理</p>
+<ul>
+<li><p>简述原理：上述p1对象添加addObserver操作之后，p1对象的isa指针由之前的指向类对象Person变为指向一个通过Runtime动态创建的子类NSKVONotifyin_Person类对象，该子类拥有（重写）自己的set方法实现，set方法实现内部会顺序调用willChangeValueForKey方法、然后调用原来（父类）的setter方法实现、didChangeValueForKey方法，而didChangeValueForKey方法内部又会调用监听器的observeValueForKeyPath:ofObject:change:context:监听方法。也就是说一旦p1对象添加了KVO监听以后，其isa指针就会发生变化，因此set方法的执行效果就不一样了。</p>
+</li>
+<li><p>NSKVONotifyin_Person内部调用逻辑<br>NSKVONotifyin_Person中的setage方法中其实调用了 Fundation框架中C语言函数 _NSsetIntValueAndNotify，_NSsetIntValueAndNotify内部做的操作相当于，首先调用willChangeValueForKey 将要改变方法，之后调用父类的setage方法对成员变量赋值，最后调用didChangeValueForKey已经改变方法。didChangeValueForKey中会调用监听器的监听方法，最终来到监听者的observeValueForKeyPath方法中。</p>
+</li>
+<li><p>NSKVONotifyin_Person类重写方法的目的和实现</p>
+<blockquote>
+<p>重写的方法有：<br>+(Class)class<br>-(void)setAge:(int)age:</p>
+</blockquote>
+</li>
+</ul>
+<p>这里NSKVONotifyin_Person重写class方法是为了隐藏NSKVONotifyin_Person。不被外界所看到。我们在p1添加过KVO监听之后，打印p1对象的class可以发现返回Person</p>
+<blockquote>
+<p>如何手动触发KVO?<br> 被监听的属性的值被修改时，就会自动触发KVO。如果想要手动触发KVO，则需要我们自己调用willChangeValueForKey和didChangeValueForKey方法即可在不改变属性值的情况下手动触发KVO，并且这两个方法缺一不可。</p>
+</blockquote>
+<p>5.kvo如何添加多个属性的监听<br> 思考下，如果我们要同时对多个属性进行监听，那么我们就需要添加N多个addObserver么？<br>例如我们涉及到属性嵌套，Person类里面有个Dog类属性，Dog类有age和level属性需要监听<br>当然不用！这就是我这节要讲的内容，往下看：</p>
+<blockquote>
+<p>场景：Person类继承NSObject，Dog类集成Person类，有name、age、level等属性，在VC中添加对person.dog的属性kvo观察，如果dog的属性太多，无需多次添加addobserver进行重复代码，此时可调用一个函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-  (NSSet&lt;NSString  *&gt;  *)keyPathForvaluesAffectingValueForKey:(NSString  *)key&#123;</span><br><span class="line">    NSSet * keyPaths =[super keyPathForvaluesAffectingValueForKey:key];</span><br><span class="line">    if ([key isEqualToString:@&quot;dog&quot;]) &#123;</span><br><span class="line">        keyPaths =[[NSSet alloc]initWithObjects:@&quot;_dog.age&quot;,@&quot;_dog.level&quot;, nil];</span><br><span class="line">    &#125;</span><br><span class="line">    return keyPaths;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>在这个函数里面做属性的判断和处理，返回一个NSSet集合，在监听的地方，直接对“dog”监听就可以了</p>
+<p>6.KVO使用需要注意什么</p>
+<blockquote>
+<p>1.使用完了记得要移除，不然会引起crash<br>2.key的容错处理<br>  如果用“key”的形式写key很容易出错，这里给大家说一个小技巧：<br>我们在写keypath的时候使用下面的方法去写，能规避一些错误<br>NSStringFromSelector(@selector(age))</p>
+</blockquote>
+<h3 id="个人宣传广告位："><a href="#个人宣传广告位：" class="headerlink" title="个人宣传广告位："></a>个人宣传广告位：</h3><p>Github：<a href="https://github.com/shLuckySeven" target="_blank" rel="noopener">shLuckySeven</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/底层原理/" rel="tag"># 底层原理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/06/蓝牙固件升级方案/" rel="next" title="蓝牙固件升级方案">
+                <i class="fa fa-chevron-left"></i> 蓝牙固件升级方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章开篇，先介绍下本篇博客主要介绍的内容："><span class="nav-number">1.</span> <span class="nav-text">文章开篇，先介绍下本篇博客主要介绍的内容：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#K"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">K</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">V</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#O"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">O</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人宣传广告位："><span class="nav-number">1.2.</span> <span class="nav-text">个人宣传广告位：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

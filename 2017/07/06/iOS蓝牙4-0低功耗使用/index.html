@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="蓝牙,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="iOS 蓝牙4.0开发使用 嗨大家好，我是iOS开发一枚大帅比，过去的几年项目涉及到蓝牙比较多，抽空之余，把使用的小知识点归纳起来，一是方便自己对知识做很好的总结和复习，二是希望能帮助到琅琊开发的朋友们。 一、简介（什么是BLE4.0？哪里使用它？） 现在的互联网时代，智能硬件设备越来越多样化，这些设备中，有多是通过手机来控制硬件设备，来达到控制的效果，这中间少不了要使用到蓝牙功能，通过蓝牙来通信">
+<meta name="keywords" content="蓝牙">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS蓝牙4.0低功耗使用">
+<meta property="og:url" content="http://www.shuhuan.fun/2017/07/06/iOS蓝牙4-0低功耗使用/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="iOS 蓝牙4.0开发使用 嗨大家好，我是iOS开发一枚大帅比，过去的几年项目涉及到蓝牙比较多，抽空之余，把使用的小知识点归纳起来，一是方便自己对知识做很好的总结和复习，二是希望能帮助到琅琊开发的朋友们。 一、简介（什么是BLE4.0？哪里使用它？） 现在的互联网时代，智能硬件设备越来越多样化，这些设备中，有多是通过手机来控制硬件设备，来达到控制的效果，这中间少不了要使用到蓝牙功能，通过蓝牙来通信">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-06T15:46:38.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS蓝牙4.0低功耗使用">
+<meta name="twitter:description" content="iOS 蓝牙4.0开发使用 嗨大家好，我是iOS开发一枚大帅比，过去的几年项目涉及到蓝牙比较多，抽空之余，把使用的小知识点归纳起来，一是方便自己对知识做很好的总结和复习，二是希望能帮助到琅琊开发的朋友们。 一、简介（什么是BLE4.0？哪里使用它？） 现在的互联网时代，智能硬件设备越来越多样化，这些设备中，有多是通过手机来控制硬件设备，来达到控制的效果，这中间少不了要使用到蓝牙功能，通过蓝牙来通信">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2017/07/06/iOS蓝牙4-0低功耗使用/">
+
+
+
+
+
+  <title>iOS蓝牙4.0低功耗使用 | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2017/07/06/iOS蓝牙4-0低功耗使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS蓝牙4.0低功耗使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T22:23:51+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发积累/" itemprop="url" rel="index">
+                    <span itemprop="name">开发积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>iOS 蓝牙4.0开发使用</p>
+<p>嗨大家好，我是iOS开发一枚大帅比，过去的几年项目涉及到蓝牙比较多，抽空之余，把使用的小知识点归纳起来，一是方便自己对知识做很好的总结和复习，二是希望能帮助到琅琊开发的朋友们。</p>
+<p>一、简介（什么是BLE4.0？哪里使用它？）</p>
+<p>现在的互联网时代，智能硬件设备越来越多样化，这些设备中，有多是通过手机来控制硬件设备，来达到控制的效果，这中间少不了要使用到蓝牙功能，通过蓝牙来通信来控制设备。也就是我们说的“设备中心和外设的故事”。</p>
+<p>蓝牙版本介绍：</p>
+<p>每个人对于蓝牙都不陌生，近距离数据传输，方便；可是当你的业务需求需要你第一次接触蓝牙开发的时候，却会发现你对它并不了解；首先，蓝牙发展至今经历了8个版本的更新。1.1、1.2、2.0、2.1、3.0、4.0、4.1、4.2。那么在1.x~3.0之间的我们称之为传统蓝牙，4.x开始的蓝牙我们称之为低功耗蓝牙也就是蓝牙ble，当然4.x版本的蓝牙也是向下兼容的。android手机必须系统版本4.3及以上才支持BLE API。低功耗蓝牙较传统蓝牙，传输速度更快，覆盖范围更广，安全性更高，延迟更短，耗电极低等等优点。（现在的穿戴设备都是使用BLE蓝牙技术的）</p>
+<p>传统蓝牙与低功耗蓝牙通信方式也有所不同，传统的一般通过socket方式，而低功耗蓝牙是通过Gatt协议来实现。</p>
+<p>本文章目的便是介绍BLE 4.0的使用以及相关问题的解决，本文采用简要模式介绍BLE4.0的核心类的使用以及蓝牙开发的简介，如需了解蓝牙知识的详细知识点，百度可搜索其他大神的文章进行学习，下文通用BLE代为蓝牙4.0。</p>
+<p>二、BLE的核心模式</p>
+<p>BLE的两种模式分为CBCentralMannager 中心模式 和CBPeripheralManager 外设模式，在这里主要和大家分享CBCentralMannager 中心模式的开发和使用。</p>
+<p>CBCentralMannager 中心模式</p>
+<p>以手机（app）作为设备中心，连接其他外设（硬件）的场景。详细流程如下：</p>
+<p>1、建立中心角色</p>
+<p>2、扫描外设</p>
+<p>3、发现外设</p>
+<p>4、连接外设：</p>
+<pre><code>1.连接失败
+
+2. 连接断开
+
+3.连接成功
+</code></pre><p>5、扫描外设中的服务</p>
+<pre><code>1.发现并获取外设中的服务Service
+</code></pre><p>6、扫描外设对应服务的特征</p>
+<pre><code>1.发现并获取外设对应服务的特征Characteristic
+
+2.给对应特征写数据
+
+3.订阅特征的通知 7.1 根据特征读取数据
+</code></pre><p>说明：Service，Characteristic是每个硬件设备出厂设定的设备服务和特征值，用UUID作为唯一标识符。UUID为这种格式：0000ffe1-0000-1000-8000-00805f9b34fb。比如有3个Service，那么就有三个不同的UUID与Service对应。这些UUID都写在硬件里，我们通过BLE提供的API可以读取到，一个BLE终端可以包含多个Service， 一个Service可以包含多个Characteristic，一个Characteristic包含一个value和多个Descriptor，一个Descriptor包含一个Value。Characteristic是比较重要的，是手机与BLE终端交换数据的关键，读取设置数据等操作都是操作Characteristic的相关属性。说白了，我们可以把每个服务特征值看成是我们网络请求的api接口，我们和蓝牙的交互，是要连接到对应的service和对应的Characteristic才可以正确读取到和硬件文档以及出厂定制好的服务和数据。</p>
+<p>三、CBPeriphera</p>
+<p>暂且把这个小可爱理解为你所能发现搜索到的外设（硬件）对象，蓝牙硬件的信息都包含在它里面</p>
+<p>下面我们看下这个类所包含的内容：</p>
+<p>CB_EXTERN_CLASS @interface CBPeripheral : CBPeer</p>
+<p>//代理</p>
+<p>@property(weak, nonatomic, nullable) id<cbperipheraldelegate> delegate;</cbperipheraldelegate></p>
+<p>//我们所能搜索到的外设名称</p>
+<p>@property(retain, readonly, nullable) NSString *name;</p>
+<p>//信号强度</p>
+<p>@property(retain, readonly, nullable) NSNumber *RSSI;</p>
+<p>//设备状态，包含以下4种状态</p>
+<p>@property(readonly) CBPeripheralState state;</p>
+<p>typedef NS_ENUM(NSInteger, CBPeripheralState) {</p>
+<p>CBPeripheralStateDisconnected = 0,</p>
+<p>CBPeripheralStateConnecting,</p>
+<p>CBPeripheralStateConnected,</p>
+<p>CBPeripheralStateDisconnecting</p>
+<p>}</p>
+<p>//服务群组</p>
+<p>@property(retain, readonly, nullable) NSArray<cbservice *> *services;</cbservice></p>
+<p>由于函数和属性太多，我只列举主要的几个，其他的可在代码中点击查看即可<br>四、使用步骤概要</p>
+<p>1、导入：#import &lt;CoreBluetooth/CoreBluetooth.h&gt;</p>
+<p>2、遵守CBCentralManagerDelegate,CBPeripheralDelegate协议</p>
+<p>3、初始化中心Manager，创建中心角色</p>
+<p>为了方便引用，一般把manager声明为一个属性对象：</p>
+<p>@property (nonatomic, strong) CBCentralManager * centralManager;</p>
+<p> self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];</p>
+<p>注：queue为你想把蓝牙初始化放到哪个队列，一般默认主队列</p>
+<pre><code>options传nil即可，具体使用可查看策略含义
+</code></pre><p>4、检查当前设备中心的蓝牙状态</p>
+<p>// 状态更新时调用</p>
+<ul>
+<li>(void)centralManagerDidUpdateState:(CBCentralManager *)central</li>
+</ul>
+<p>{</p>
+<pre><code>switch (central.state) {
+
+    case CBManagerStateUnknown:{
+
+        NSLog(@&quot;为知状态&quot;);
+
+        self.peripheralState = central.state;
+
+    }
+
+        break;
+
+    case CBManagerStateResetting:
+
+    {
+
+        NSLog(@&quot;重置状态&quot;);
+
+        self.peripheralState = central.state;
+
+    }
+
+        break;
+
+    case CBManagerStateUnsupported:
+
+    {
+
+        NSLog(@&quot;不支持的状态&quot;);
+
+        self.peripheralState = central.state;
+
+    }
+
+        break;
+
+    case CBManagerStateUnauthorized:
+
+    {
+
+        NSLog(@&quot;未授权的状态&quot;);
+
+        self.peripheralState = central.state;
+
+    }
+
+        break;
+
+    case CBManagerStatePoweredOff:
+
+    {
+
+        NSLog(@&quot;关闭状态&quot;);
+
+        self.peripheralState = central.state;
+
+    }
+
+        break;
+
+    case CBManagerStatePoweredOn:
+
+    {
+
+        NSLog(@&quot;开启状态－可用状态&quot;);
+
+        self.peripheralState = central.state;
+
+        NSLog(@&quot;%ld&quot;,(long)self.peripheralState);
+
+    }
+
+        break;
+
+    default:
+
+        break;
+
+}
+</code></pre><p>}<br>5、开始扫描</p>
+<p>if (self.peripheralState == CBManagerStatePoweredOn){</p>
+<p>[self.centralManager scanForPeripheralsWithServices:nil options:nil];</p>
+<p>}<br>6、发现外设</p>
+<p>/**</p>
+<p>扫描到设备</p>
+<p>@param central 中心管理者</p>
+<p>@param peripheral 扫描到的设备</p>
+<p>@param advertisementData 广告信息</p>
+<p>@param RSSI 信号强度</p>
+<p>*/</p>
+<ul>
+<li>(void)centralManager:(CBCentralManager <em>)central didDiscoverPeripheral:(CBPeripheral </em>)peripheral advertisementData:(NSDictionary<nsstring *,id> <em>)advertisementData RSSI:(NSNumber </em>)RSSI</nsstring></li>
+</ul>
+<p>{</p>
+<pre><code>NSLog(@&quot;%@&quot;,[NSString stringWithFormat:@&quot;发现设备,设备名:%@&quot;,peripheral.name]);
+</code></pre><p>}<br>7、连接外设</p>
+<p>[self.centralManager connectPeripheral:peripheral options:nil];<br>      连接状态</p>
+<p>/**</p>
+<p>@param central 中心管理者</p>
+<p>@param peripheral 连接失败的设备</p>
+<p>@param error 错误信息</p>
+<p>*/</p>
+<p><strong> 连接失败 </strong></p>
+<ul>
+<li>(void)centralManager:(CBCentralManager <em>)central didFailToConnectPeripheral:(CBPeripheral </em>)peripheral error:(NSError *)error</li>
+</ul>
+<p>{</p>
+<pre><code>NSLog(@&quot;%@&quot;,@&quot;连接失败&quot;);
+</code></pre><p>}</p>
+<p><strong> 连接断开 </strong></p>
+<ul>
+<li>(void)centralManager:(CBCentralManager <em>)central didDisconnectPeripheral:(CBPeripheral </em>)peripheral error:(NSError *)error { </li>
+</ul>
+<p>NSLog(@”%@”,@”断开连接”);</p>
+<p> }</p>
+<p><strong> 连接成功 </strong> </p>
+<ul>
+<li>(void)centralManager:(CBCentralManager <em>)central didConnectPeripheral:(CBPeripheral </em>)peripheral { </li>
+</ul>
+<p>NSLog(@”连接设备:%@成功”,peripheral.name);</p>
+<p> [self.centralManager stopScan]; </p>
+<p>}<br>8、扫描外设服务Service</p>
+<p>// 设置设备的代理</p>
+<p>peripheral.delegate = self;</p>
+<p>// services:传入nil  代表扫描所有服务</p>
+<p>[peripheral discoverServices:nil];<br>/**</p>
+<p>扫描到服务</p>
+<p>@param peripheral 服务对应的设备</p>
+<p>@param error 扫描错误信息</p>
+<p>*/</p>
+<ul>
+<li>(void)peripheral:(CBPeripheral <em>)peripheral didDiscoverServices:(NSError </em>)error</li>
+</ul>
+<p>{</p>
+<pre><code>// 遍历所有的服务
+
+for (CBService *service in peripheral.services)
+
+{
+
+    NSLog(@&quot;服务:%@&quot;,service.UUID.UUIDString);
+
+}
+</code></pre><p>}<br>9、扫描service特征值</p>
+<p>kWriteServerUUID 为和厂家协定好的，</p>
+<p>例：读取电量的UUID：08B07DCB-13DD-435C-8BDA-04DA65BDC6AA</p>
+<p>// 获取对应的服务</p>
+<pre><code>if (![service.UUID.UUIDString isEqualToString:kWriteServerUUID])
+
+{
+
+    return;
+
+}
+
+// 根据服务去扫描特征
+
+[peripheral discoverCharacteristics:nil forService:service];
+</code></pre><p>10、给特征值写数据（就是发送指令）</p>
+<p>[peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];<br>11、订阅特征值通知（订阅后可收到回应的数据）</p>
+<p>if ([characteristic.UUID.UUIDString isEqualToString:kNotifyCharacteristicUUID]){</p>
+<p>  [peripheral setNotifyValue:YES forCharacteristic:characteristic];</p>
+<p>}<br>12、根据特征值读取数据（注：应把之前发送数据和订阅通知的peripheral和characteristic定义为全局属性）</p>
+<p>*该处即为接收到外设发送的数据的方法</p>
+<p>/**</p>
+<p>根据特征读到数据</p>
+<p>@param peripheral 读取到数据对应的设备</p>
+<p>@param characteristic 特征</p>
+<p>@param error 错误信息</p>
+<p>*/</p>
+<ul>
+<li>(void)peripheral:(CBPeripheral <em>)peripheral didUpdateValueForCharacteristic:(nonnull CBCharacteristic </em>)characteristic error:(nullable NSError *)error</li>
+</ul>
+<p>{</p>
+<pre><code>if ([characteristic.UUID.UUIDString isEqualToString:kNotifyCharacteristicUUID])
+
+{
+
+    NSData *data = characteristic.value;
+
+    NSLog(@&quot;%@&quot;,data);
+
+}
+</code></pre><p>}</p>
+<p>到这里，整个蓝牙使用的核心流程就基本介绍完了，鉴于写博客文章太累，太耗时，我决定先睡觉去，回头把文章慢慢细化一下，查漏补缺，格式可能也不是很完美，请读者们见谅，多提宝贵意见，喜欢的老铁们，可以点下喜欢或者收藏！</p>
+<p>打个广告</p>
+<p>本人github地址：shLuckySeven</p>
+<p>欢迎去点star</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/蓝牙/" rel="tag"># 蓝牙</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/21/Apple协议大全2016/" rel="next" title="Apple协议大全2016">
+                <i class="fa fa-chevron-left"></i> Apple协议大全2016
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/14/Xcode快捷键/" rel="prev" title="Xcode快捷键">
+                Xcode快捷键 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="随着我们移动互联网的兴起到火爆，成千上万款app营运而生，电商、出行、音视频、教育等等，五花八门，那么每一款APP都会有对应的人群去下载使用，那么用户对一款app的钟爱程度除了这款app很受喜爱和直接用途之外，受大家喜爱并且留存在手机上长久不卸载的一个重要原因，便是我们的app的性能，包括：启动速度、启动后的流畅度、app的安装包体积、app运行对手机的电量消耗、app是否有闪退等，这几个条件，">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS- 性能优化（启动、电量、包体等）">
+<meta property="og:url" content="http://www.shuhuan.fun/2019/03/06/iOS性能优化/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="随着我们移动互联网的兴起到火爆，成千上万款app营运而生，电商、出行、音视频、教育等等，五花八门，那么每一款APP都会有对应的人群去下载使用，那么用户对一款app的钟爱程度除了这款app很受喜爱和直接用途之外，受大家喜爱并且留存在手机上长久不卸载的一个重要原因，便是我们的app的性能，包括：启动速度、启动后的流畅度、app的安装包体积、app运行对手机的电量消耗、app是否有闪退等，这几个条件，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-8ac5cc2cdf286e22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-a838a0fca65acba8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-06T15:46:38.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS- 性能优化（启动、电量、包体等）">
+<meta name="twitter:description" content="随着我们移动互联网的兴起到火爆，成千上万款app营运而生，电商、出行、音视频、教育等等，五花八门，那么每一款APP都会有对应的人群去下载使用，那么用户对一款app的钟爱程度除了这款app很受喜爱和直接用途之外，受大家喜爱并且留存在手机上长久不卸载的一个重要原因，便是我们的app的性能，包括：启动速度、启动后的流畅度、app的安装包体积、app运行对手机的电量消耗、app是否有闪退等，这几个条件，">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1707644-8ac5cc2cdf286e22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2019/03/06/iOS性能优化/">
+
+
+
+
+
+  <title>iOS- 性能优化（启动、电量、包体等） | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2019/03/06/iOS性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS- 性能优化（启动、电量、包体等）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T22:13:29+08:00">
+                2019-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 随着我们移动互联网的兴起到火爆，成千上万款app营运而生，电商、出行、音视频、教育等等，五花八门，那么每一款APP都会有对应的人群去下载使用，那么用户对一款app的钟爱程度除了这款app很受喜爱和直接用途之外，受大家喜爱并且留存在手机上长久不卸载的一个重要原因，便是我们的app的性能，包括：启动速度、启动后的流畅度、app的安装包体积、app运行对手机的电量消耗、app是否有闪退等，这几个条件，决定了一款app是否优秀。<br>下面我针对这几个方面做下项目性能优化的经验和知识点分享</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>项目启动</li>
+<li>项目运行</li>
+<li>安装包体积</li>
+<li>app的电量消耗</li>
+</ul>
+<h2 id="1-项目启动"><a href="#1-项目启动" class="headerlink" title="1.项目启动"></a>1.项目启动</h2><blockquote>
+<p>项目启动环节，我们大致分为2种启动：即<strong>冷启动（Cold Launch<br>）</strong>和<strong>热启动（Warm Launch）</strong>，针对优化，我们主要针对冷启动</p>
+</blockquote>
+<h5 id="知识点：打印启动时间"><a href="#知识点：打印启动时间" class="headerlink" title="知识点：打印启动时间"></a>知识点：打印启动时间</h5><blockquote>
+<p>通过添加环境变量可以打印出APP的启动时间分析（Edit scheme -&gt; Run -&gt; Arguments）<br>DYLD_PRINT_STATISTICS设置为1<br>如果需要更详细的信息，那就将DYLD_PRINT_STATISTICS_DETAILS设置为1</p>
+</blockquote>
+<h5 id="冷启动大概又分为三个阶段"><a href="#冷启动大概又分为三个阶段" class="headerlink" title="冷启动大概又分为三个阶段"></a>冷启动大概又分为三个阶段</h5><blockquote>
+<p>1.dyld<br>2.Runtime<br>3.main函数</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-8ac5cc2cdf286e22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="launch.png"></p>
+<h4 id="dyld"><a href="#dyld" class="headerlink" title="dyld"></a><strong>dyld</strong></h4><p>dyld（dynamic link editor），Apple的动态链接器，可以用来装载Mach-O文件（可执行文件、动态库等）<br>启动APP时，dyld所做的事情有:</p>
+<blockquote>
+<p>装载APP的可执行文件，同时会递归加载所有依赖的动态库<br>当dyld把可执行文件、动态库都装载完毕后，会通知Runtime进行下一步的处理</p>
+</blockquote>
+<p>具体关于dyld的讲解，我推荐一篇文章<a href="https://www.jianshu.com/p/5f337da8fbef" target="_blank" rel="noopener">dyld专题讲解</a>，写的不错，后续我也会对dyld写篇自己的理解的博客</p>
+<h4 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a><strong>Runtime</strong></h4><p>这里说的Runtime并不是要对Runtime进行底层讲解，是针对程序的启动流程的Runtime阶段进行分析，推荐一篇关于Runtime的底层讲解<a href="https://www.jianshu.com/p/d949b51d5de7" target="_blank" rel="noopener">iOS底层原理总结 - 探寻Runtime本质（一）</a><br>启动APP时，runtime所做的事情有</p>
+<blockquote>
+<ul>
+<li>调用map_images进行可执行文件内容的解析和处理</li>
+<li>在load_images中调用call_load_methods，调用所有Class和Category的+load方法</li>
+<li>进行各种objc结构的初始化（注册Objc类 、初始化类对象等等）</li>
+<li>调用C++静态初始化器和<strong>attribute</strong>((constructor))修饰的函数</li>
+</ul>
+</blockquote>
+<p>到此为止，可执行文件和动态库中所有的符号(Class，Protocol，Selector，IMP，…)都已经按格式成功加载到内存中，被runtime 所管理</p>
+<h4 id="Main函数"><a href="#Main函数" class="headerlink" title="Main函数"></a><strong>Main函数</strong></h4><p>main函数的调用，便是我们熟知的项目中Main入口和AppDelegate类里面的那一系列的调用了</p>
+<h3 id="总结一下优化方案，按照阶段："><a href="#总结一下优化方案，按照阶段：" class="headerlink" title="总结一下优化方案，按照阶段："></a>总结一下优化方案，按照阶段：</h3><p>dyld</p>
+<blockquote>
+<p>减少动态库、合并一些动态库（定期清理不必要的动态库）<br>减少Objc类、分类的数量、减少Selector数量（定期清理不必要的类、分类）<br>减少C++虚函数数量<br>Swift尽量使用struct</p>
+</blockquote>
+<p>Runtime</p>
+<blockquote>
+<p>用+initialize方法和dispatch_once取代所有的<strong>attribute</strong>((constructor))、C++静态构造器、ObjC的+load</p>
+</blockquote>
+<p>Main函数</p>
+<blockquote>
+<ul>
+<li>在不影响用户体验的前提下，尽可能将一些操作延迟，不要全部都放在 finishLaunching方法中,例如三方注册、启动图等</li>
+<li>按需加载</li>
+</ul>
+</blockquote>
+<h2 id="2-项目运行"><a href="#2-项目运行" class="headerlink" title="2.项目运行"></a>2.项目运行</h2><p>其实项目运行优化，就涉及到我们的代码优化了，最常见也是影响最大的，就是 </p>
+<blockquote>
+<p><strong>卡顿现象</strong></p>
+</blockquote>
+<p><code>针对卡顿现象的原因和优化我在这里大概列举一下，我会在另一篇关于CPU和GPU，以及离屏渲染等方向进行讲解</code></p>
+<h4 id="CPU优化策略："><a href="#CPU优化策略：" class="headerlink" title="CPU优化策略："></a>CPU优化策略：</h4><p>1.尽量用轻量级的对象，比如用不到事件处理的地方，可以考虑使用CALayer取代UIView<br>2.不要频繁地调用UIView的相关属性，比如frame、bounds、transform等属性，尽量减少不必要的修改<br>3.尽量提前计算好布局，在有需要时一次性调整对应的属性，不要多次修改属性<br>4.Autolayout会比直接设置frame消耗更多的CPU资源<br>5.图片的size最好刚好跟UIImageView的size保持一致<br>6.控制一下线程的最大并发数量<br>7.尽量把耗时的操作放到子线程<br>8.文本处理（尺寸计算、绘制）<br>9.图片处理（解码、绘制）</p>
+<h4 id="GPU优化策略："><a href="#GPU优化策略：" class="headerlink" title="GPU优化策略："></a>GPU优化策略：</h4><p>1.尽量避免短时间内大量图片的显示，尽可能将多张图片合成一张进行显示<br>2.GPU能处理的最大纹理尺寸是4096x4096，一旦超过这个尺寸，就会占用3.CPU资源进行处理，所以纹理尽量不要超过这个尺寸<br>4.尽量减少视图数量和层次<br>5.减少透明的视图（alpha&lt;1），不透明的就设置opaque为YES<br>6.尽量避免出现离屏渲染</p>
+<h4 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h4><p><strong>在OpenGL中，GPU有2种渲染方式</strong><br>On-Screen Rendering：当前屏幕渲染，在当前用于显示的屏幕缓冲区进行渲染操作<br>Off-Screen Rendering：离屏渲染，在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作</p>
+<p><strong>离屏渲染消耗性能的原因:</strong><br>1.需要创建新的缓冲区<br>2.离屏渲染的整个过程，需要多次切换上下文环境，先是从当前屏幕（On-Screen）切换到离屏（Off-Screen）；等到离屏渲染结束以后，将离屏缓冲区的渲染结果显示到屏幕上，又需要将上下文环境从离屏切换到当前屏幕</p>
+<p><strong>哪些操作会触发离屏渲染？</strong></p>
+<ul>
+<li>光栅化，layer.shouldRasterize = YES</li>
+<li>遮罩，layer.mask</li>
+<li>圆角，同时设置layer.masksToBounds = YES、layer.cornerRadius大于0<br>考虑通过CoreGraphics绘制裁剪圆角，或者叫美工提供圆角图片</li>
+<li>阴影，layer.shadowXXX<br>如果设置了layer.shadowPath就不会产生离屏渲染<h4 id="卡顿检测"><a href="#卡顿检测" class="headerlink" title="卡顿检测"></a>卡顿检测</h4>我们平时所说的“卡顿”主要是因为在主线程执行了比较耗时的操作<h5 id="如何检测？"><a href="#如何检测？" class="headerlink" title="如何检测？"></a>如何检测？</h5>可以添加Observer到主线程RunLoop中，通过监听RunLoop状态切换的耗时，以达到监控卡顿的目的<br>当然网上还有更多的别的方案，后续我会针对这一块进行讲解，读者可以留言别的方式交流<h2 id="3-安装包体积瘦身"><a href="#3-安装包体积瘦身" class="headerlink" title="3.安装包体积瘦身"></a>3.安装包体积瘦身</h2>首先我们要知道安装包的组成成分<blockquote>
+<ul>
+<li>可执行文件</li>
+<li>资源（图片、音频、视频等）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h5 id="资源瘦身方案："><a href="#资源瘦身方案：" class="headerlink" title="资源瘦身方案："></a>资源瘦身方案：</h5><ul>
+<li>采取无损压缩，进行资源压缩</li>
+<li>定期删除无用资源，这里推荐一个工具<br>[检测无用资源]（<a href="https://github.com/tinymind/LSUnusedResources）" target="_blank" rel="noopener">https://github.com/tinymind/LSUnusedResources）</a><h5 id="可执行文件瘦身方案："><a href="#可执行文件瘦身方案：" class="headerlink" title="可执行文件瘦身方案："></a>可执行文件瘦身方案：</h5></li>
+<li>编译器优化<br>Strip Linked Product、Make Strings Read-Only、Symbols Hidden by Default设置为YES<br>去掉异常支持，Enable C++ Exceptions、Enable Objective-C Exceptions设置为NO， Other C Flags添加-fno-exceptions</li>
+<li>利用AppCode（<a href="https://www.jetbrains.com/objc/）检测未使用的代码：菜单栏" target="_blank" rel="noopener">https://www.jetbrains.com/objc/）检测未使用的代码：菜单栏</a> -&gt; Code -&gt; Inspect Code</li>
+<li>编写LLVM插件检测出重复代码、未被调用的代码</li>
+</ul>
+<h2 id="4-App的电量消耗优化"><a href="#4-App的电量消耗优化" class="headerlink" title="4.App的电量消耗优化"></a>4.App的电量消耗优化</h2><p>首先我们要知道App好点的几个主要来源<br><img src="https://upload-images.jianshu.io/upload_images/1707644-a838a0fca65acba8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="energy.png"></p>
+<blockquote>
+<ul>
+<li>CPU</li>
+<li>网络请求任务</li>
+<li>定位</li>
+<li>图片处理</li>
+</ul>
+</blockquote>
+<p>我们大概从以下入手进行优化，（视自己项目情况而定）：</p>
+<p>1.尽可能降低CPU、GPU功耗<br>2.尽可能少用定时器<br>3.优化I/O操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.尽量不要频繁写入小数据，最好批量一次性写入</span><br><span class="line">2.读写大量重要数据时，考虑用dispatch_io，其提供了基于GCD的异步操作文件I/O的API。用dispatch_io系统会优化磁盘访问</span><br><span class="line">3.数据量比较大的，建议使用数据库（比如SQLite、CoreData）</span><br></pre></td></tr></table></figure></p>
+<p>4.网络优化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.减少、压缩网络数据</span><br><span class="line">2.如果多次请求的结果是相同的，尽量使用缓存</span><br><span class="line">3.使用断点续传，否则网络不稳定时可能多次传输相同的内容</span><br><span class="line">4.网络不可用时，不要尝试执行网络请求</span><br><span class="line">5.让用户可以取消长时间运行或者速度很慢的网络操作，设置合适的超时时间</span><br><span class="line">批量传输，比如，下载视频流时，不要传输很小的数据包，直接下载整个文件或者一大块一大块地下载。如果下载广告，一次性多下载一些，然后再慢慢展示。如果下载电子邮件，一次下载多封，不要一封一封地下载</span><br></pre></td></tr></table></figure></p>
+<p>5.定位优化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.如果只是需要快速确定用户位置，最好用CLLocationManagerrequestLocation方法。定位完成后，会自动让定位硬件断电</span><br><span class="line">2.如果不是导航应用，尽量不要实时更新位置，定位完毕就关掉定位服务</span><br><span class="line">3.尽量降低定位精度，比如尽量不要使用精度最高的kCLLocationAccuracyBest</span><br><span class="line">需要后台定位时，尽量设置pausesLocationUpdatesAutomatically为YES，如果用户不太可能移动的时候系统会自动暂停位置更新</span><br><span class="line">4.尽量不要使用startMonitoringSignificantLocationChanges，优先考虑startMonitoringForRegion:</span><br></pre></td></tr></table></figure></p>
+<p>6.硬件检测优化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户移动、摇晃、倾斜设备时，会产生动作(motion)事件，这些事件由加速度计、陀螺仪、磁力计等硬件检测。在不需要检测的场合，应该及时关闭这些硬件</span><br></pre></td></tr></table></figure></p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>到这里，对app的优化就基本说完了，大家可以留言交流更好的优化方案，文章如有错误或者理解不到位之处，希望大家指点，有帮助的老铁们，点个喜欢，谢谢<br>Github:  <a href="https://github.com/shLuckySeven" target="_blank" rel="noopener">https://github.com/shLuckySeven</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/05/WWDC2018/" rel="next" title="WWDC 2018">
+                <i class="fa fa-chevron-left"></i> WWDC 2018
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/05/TCP协议：三次握手和四次挥手/" rel="prev" title="TCP三次握手和四次挥手（接地气篇）">
+                TCP三次握手和四次挥手（接地气篇） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#1-项目启动"><span class="nav-number"></span> <span class="nav-text">1.项目启动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点：打印启动时间"><span class="nav-number">0.0.1.</span> <span class="nav-text">知识点：打印启动时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#冷启动大概又分为三个阶段"><span class="nav-number">0.0.2.</span> <span class="nav-text">冷启动大概又分为三个阶段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dyld"><span class="nav-number">0.1.</span> <span class="nav-text">dyld</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Runtime"><span class="nav-number">0.2.</span> <span class="nav-text">Runtime</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Main函数"><span class="nav-number">0.3.</span> <span class="nav-text">Main函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下优化方案，按照阶段："><span class="nav-number">1.</span> <span class="nav-text">总结一下优化方案，按照阶段：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-项目运行"><span class="nav-number"></span> <span class="nav-text">2.项目运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU优化策略："><span class="nav-number">0.1.</span> <span class="nav-text">CPU优化策略：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPU优化策略："><span class="nav-number">0.2.</span> <span class="nav-text">GPU优化策略：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离屏渲染"><span class="nav-number">0.3.</span> <span class="nav-text">离屏渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卡顿检测"><span class="nav-number">0.4.</span> <span class="nav-text">卡顿检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何检测？"><span class="nav-number">0.4.1.</span> <span class="nav-text">如何检测？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-安装包体积瘦身"><span class="nav-number"></span> <span class="nav-text">3.安装包体积瘦身</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#资源瘦身方案："><span class="nav-number">0.0.1.</span> <span class="nav-text">资源瘦身方案：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可执行文件瘦身方案："><span class="nav-number">0.0.2.</span> <span class="nav-text">可执行文件瘦身方案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-App的电量消耗优化"><span class="nav-number"></span> <span class="nav-text">4.App的电量消耗优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number"></span> <span class="nav-text">结尾</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

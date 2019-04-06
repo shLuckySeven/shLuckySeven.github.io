@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Apple,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言一年一度的 WWDC（苹果全球开发者大会）于北京时间 6月5日 凌晨1点开幕。废话不多说，来看看这次WWDC 都有哪些亮点吧!内容不少呢 iOS 12 和 ARKit 2.0 关键词：官方防沉迷最为致命  iOS 12iOS 12 相较于 iOS 11 并没有太多UI上的变动，刚更新完 bate 版本的 iOS 12，完全感觉不到这是个新系统。 iOS 12 主要是对安全和性能的优化，iOS">
+<meta name="keywords" content="Apple">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WWDC 2018">
+<meta property="og:url" content="http://www.shuhuan.fun/2018/06/05/WWDC2018/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="前言一年一度的 WWDC（苹果全球开发者大会）于北京时间 6月5日 凌晨1点开幕。废话不多说，来看看这次WWDC 都有哪些亮点吧!内容不少呢 iOS 12 和 ARKit 2.0 关键词：官方防沉迷最为致命  iOS 12iOS 12 相较于 iOS 11 并没有太多UI上的变动，刚更新完 bate 版本的 iOS 12，完全感觉不到这是个新系统。 iOS 12 主要是对安全和性能的优化，iOS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.mos.cms.futurecdn.net/RdxhPVv8fAyM6oHsRgF6dH-650-80.png">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-10.jpg">
+<meta property="og:image" content="https://cdn.mos.cms.futurecdn.net/4tbGCxGUGsH9VwSLsfMDK5-650-80.png">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-9.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-11.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-13.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-14.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-Artboard.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-21.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-25.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-26.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2018/06/05/67b6fba3d36bdd7caf09bec94dcb157b.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%202.00.58%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%202.26.21%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-31.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-35.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-38.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-51.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-macOS01.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-89.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-63.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-63.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-82.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-macOS04.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-92.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-93.jpg">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-84.jpg">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%203.08.05%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://cdn.sspai.com/2018-06-04-macOS09.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1">
+<meta property="og:image" content="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-56.jpg">
+<meta property="og:updated_time" content="2019-04-06T15:46:38.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WWDC 2018">
+<meta name="twitter:description" content="前言一年一度的 WWDC（苹果全球开发者大会）于北京时间 6月5日 凌晨1点开幕。废话不多说，来看看这次WWDC 都有哪些亮点吧!内容不少呢 iOS 12 和 ARKit 2.0 关键词：官方防沉迷最为致命  iOS 12iOS 12 相较于 iOS 11 并没有太多UI上的变动，刚更新完 bate 版本的 iOS 12，完全感觉不到这是个新系统。 iOS 12 主要是对安全和性能的优化，iOS">
+<meta name="twitter:image" content="https://cdn.mos.cms.futurecdn.net/RdxhPVv8fAyM6oHsRgF6dH-650-80.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2018/06/05/WWDC2018/">
+
+
+
+
+
+  <title>WWDC 2018 | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2018/06/05/WWDC2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WWDC 2018</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T00:00:00+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术大会/" itemprop="url" rel="index">
+                    <span itemprop="name">技术大会</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一年一度的 WWDC（苹果全球开发者大会）于北京时间 6月5日 凌晨1点开幕。废话不多说，来看看这次WWDC 都有哪些亮点吧!<br>内容不少呢</p>
+<h2 id="iOS-12-和-ARKit-2-0"><a href="#iOS-12-和-ARKit-2-0" class="headerlink" title="iOS 12 和 ARKit 2.0"></a>iOS 12 和 ARKit 2.0</h2><blockquote>
+<p>关键词：官方防沉迷最为致命</p>
+</blockquote>
+<h3 id="iOS-12"><a href="#iOS-12" class="headerlink" title="iOS 12"></a>iOS 12</h3><p>iOS 12 相较于 iOS 11 并没有太多UI上的变动，刚更新完 bate 版本的 iOS 12，完全感觉不到这是个新系统。</p>
+<p>iOS 12 主要是对安全和性能的优化，iOS 12 在旧设备上的运行速度比 iOS 11更块，程序加载速度快了一倍。（PS：看来苹果并没有放弃旧设备）</p>
+<p><img src="https://cdn.mos.cms.futurecdn.net/RdxhPVv8fAyM6oHsRgF6dH-650-80.png" alt></p>
+<h3 id="ARKit-2-0"><a href="#ARKit-2-0" class="headerlink" title="ARKit 2.0"></a>ARKit 2.0</h3><p>Apple 与 皮克斯 合作开发了一种用于共享AR内容的新文件格式，新的 AR 格式名为 USDZ。</p>
+<p>作为一个含着金苹果出生的新生儿，USDZ 一开始就得到了 Adobe Creative Cloud （包括 Photoshop CC、InDesign CC、Illustrator CC、Dreamweaver CC、Premiere Pro CC）套件的支持。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-10.jpg" alt></p>
+<p>同时，面向开发者的开发套件 ARKit 则升级到了二代，主要提升了面部跟踪、渲染能力、3D 探测和共享体验等能力。</p>
+<p>随后展示了一款名为 Measure 的 App，可使用AR查看物品大小。</p>
+<p><img src="https://cdn.mos.cms.futurecdn.net/4tbGCxGUGsH9VwSLsfMDK5-650-80.png" alt></p>
+<p>最后为了演示新的 AR 能力和效果，苹果请来了乐高的创意总监来捧场。这是一个真实的乐高积木建筑物为基础，最多四个人可以用苹果 AR 应用进行游戏，可以在真实环境中模拟出各种虚拟的形象和建筑。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-9.jpg" alt><br><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-11.jpg" alt></p>
+<h3 id="相册优化"><a href="#相册优化" class="headerlink" title="相册优化"></a>相册优化</h3><p>iOS 12 的相册将大大提升搜索性能，系统不仅会提出搜索建议，还会帮你按主题整理照片。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-13.jpg" alt></p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-14.jpg" alt></p>
+<h3 id="Siri变得更聪明"><a href="#Siri变得更聪明" class="headerlink" title="Siri变得更聪明"></a>Siri变得更聪明</h3><p>iOS 12 中，苹果为 Siri 提供了更加高效的操作，让它可以操作各个应用内部的功能，并且能在锁屏界面建议用户下一步的行动。</p>
+<p>苹果还发布了一款名为「Shortcuts」的应用，它允许用户自定义 Siri 搜索指令，支持通过拖拽来快速编辑指令，同时还提供了一个指令库供用户下载现成的命令，就像是为 Siri 打造的 Workflow 自动化工具。</p>
+<p><img src="https://cdn.sspai.com/2018-06-04-Artboard.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<p>看到这里，相比熟悉苹果的朋友大概明白了，Siri 的本次改进，很可能是源于它收购的效率神器 Workflow，堪称一个用 Siri 唤醒的 Workflow。</p>
+<h3 id="原生应用大更新"><a href="#原生应用大更新" class="headerlink" title="原生应用大更新"></a>原生应用大更新</h3><p>iOS 12 中，不少原生应用都得到了更新。</p>
+<ul>
+<li>iBooks 更名为 <strong>Apple Books</strong>，采用类似 App Store 的新界面设计。</li>
+<li>新闻应用（News）在 iPad 上新添加了侧边栏，方便浏览，也突出策划内容。</li>
+<li>语音备忘录现在支持 iCloud 了</li>
+<li>股市的界面重构，可以看到股票全天走势，并打通 News 应用，方便看财经新闻；</li>
+</ul>
+<h3 id="CarPlay-开放了"><a href="#CarPlay-开放了" class="headerlink" title="CarPlay 开放了"></a>CarPlay 开放了</h3><p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-21.jpg" alt></p>
+<p>CarPlay 变得更加开放了，曾经被苹果狠心抛弃的 Google Maps 和 Google 的干儿子地图 Waze，以及来自东方的神秘力量高德地图成为首批 CarPlay 支持的第三方导航，从此“志玲姐姐为您导航”将可以常伴林肯领航者车主左右，中国梦和美国梦一起实现。</p>
+<h3 id="防手机沉迷-划重点！"><a href="#防手机沉迷-划重点！" class="headerlink" title="防手机沉迷 - 划重点！"></a>防手机沉迷 - 划重点！</h3><p>本次 iOS 12 的重点就是：<strong>防沉迷！</strong></p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-25.jpg" alt></p>
+<p>鉴于手机上瘾成为了一个社会议题，今年 Google 和苹果都不约而同地将“防沉迷”加入到了系统更新当中：</p>
+<ul>
+<li><strong>Do Not Disturb（别吵我）</strong>功能将关掉手机的视觉通知，在夜深人静想起她或梦见她的时候，来了邮件也不会亮屏刺破夜的静谧和黑暗</li>
+<li>Deliver Quietly（安静通知）则是将消息推送静默化、不显示在锁屏，也不出声，也不会在 app 右上角标红</li>
+<li><strong>Grouped Notifications（分组通知</strong>）可以将某一类型的通知归组，微信群聊消息不再有轰炸的感觉</li>
+<li><strong>Reports（应用报告）</strong>可以用周报告的形式，告诉用户用什么应用最多，哪个应用通知最多，每天起床第一个打开的是什么应用等等</li>
+<li><strong>App Limits（应用限制</strong>）可以给某个应用规定使用时间，当然这不是强制性的，用户可以突破限制继续“吃鸡”</li>
+<li><strong>Allowances（零用钱？）</strong> 是家长限制孩子使用应用的新特性</li>
+</ul>
+<h3 id="iMessage-和-FeacTime"><a href="#iMessage-和-FeacTime" class="headerlink" title="iMessage 和 FeacTime"></a>iMessage 和 FeacTime</h3><p>Animoji 新增了 4 个新表情（幽灵，考拉，老虎和霸王龙），用户还可以为自己量身定做 Animoji ，并用到各种场景——这就是全新的 Memoji 技术</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-26.jpg" alt></p>
+<p><img src="https://cdn.sspai.com/2018/06/05/67b6fba3d36bdd7caf09bec94dcb157b.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<p>iOS 版 <strong>FaceTime</strong> 迎来了群聊功能，最多支持 32 人同时聊天，成员可以随时加入或离开聊天。聊天界面用瀑布流的形式呈现，正在说话的成员窗口会自动放大。macOS 版 FaceTime 同样也得到了更新。</p>
+<p><img src="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%202.00.58%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<h2 id="tvOS"><a href="#tvOS" class="headerlink" title="tvOS"></a>tvOS</h2><blockquote>
+<p>关键词：优化试听体验</p>
+</blockquote>
+<p>tvOS 今年的变化比较小，更新主要集中在了影视资源以及细节优化上。</p>
+<p>Apple TV 4K 将支持杜比全景声和杜比视界，让你在家里也能获得电影院般的听觉体验。</p>
+<p><img src="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%202.26.21%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<h2 id="watchOS-5"><a href="#watchOS-5" class="headerlink" title="watchOS 5"></a>watchOS 5</h2><blockquote>
+<p>关键词：运动进行到底</p>
+</blockquote>
+<p>随着 Apple Watch 成长的，还有它的操作系统 watchOS，这一次 watchOS 升级到了第五代。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-31.jpg" alt></p>
+<p>Apple Watch 的功能朝着运动的方向发展，此次 watchOS 5 的更新，也以运动为主。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-35.jpg" alt></p>
+<p>watchOS 5 的一个小惊喜是让 Apple Watch 成为了对讲机，这个应用名为 Walkie Talkie（对讲机）。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-38.jpg" alt></p>
+<p>Apple Watch 早就支持了 Apple Pay，不过在通知上，Apple Watch 显然可以做得更多，比如值机和给滴滴师傅付款评分，手表不再只是个通知器，也能做些轻交互。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-51.jpg" alt></p>
+<p>还有 Apple Watch 可以浏览网页了~</p>
+<h2 id="macOS-Mojave"><a href="#macOS-Mojave" class="headerlink" title="macOS Mojave"></a>macOS Mojave</h2><blockquote>
+<p>关键词：夜间模式、全新的App Store</p>
+</blockquote>
+<p><img src="https://cdn.sspai.com/2018-06-04-macOS01.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<p>对于大多数人来说，macOS 更新最大的悬念，是新系统叫什么名字。</p>
+<p>答案是：<strong>macOS Mojave</strong>，Mojave 中译名是莫哈韦沙漠，位于在美国加利福尼亚西南，出于洛杉矶和拉斯维加斯之间。</p>
+<p>在 Mojave 这版系统中，苹果加入了一套适应暗光环境下使用的夜间主题，并对 Mac App Store 的交互界面进行了重塑，整个系统的改变甚至连库克都称为是苹果的一次 “巨大的跨越”。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-89.jpg" alt></p>
+<h3 id="夜间模式-动态桌面"><a href="#夜间模式-动态桌面" class="headerlink" title="夜间模式 / 动态桌面"></a>夜间模式 / 动态桌面</h3><p>不少用户会在暗光环境下使用电脑，即便是将屏幕亮度调到最低，也难免会因为白底色为主的主题而感到刺眼。在这次更新中，macOS Mojave 新增加了一套暗色主题，不同于目前将菜单和程序栏调成暗色的选项，新系统上的是一套全局暗色主题，即便是在文件夹、应用里都是以黑色为主色呈现。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-63.jpg" alt></p>
+<p>另外，系统可根据时间变化对桌面进行自动调整，日间使用时系统为正常主题；夜间使用时系统则自动切换至暗色模式主题。此时，台下的开发者们爆发出了一阵欢呼，大概是这个主题能够提升程序员朋友夜间加班的幸福感吧。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-63.jpg" alt></p>
+<h3 id="智能分类"><a href="#智能分类" class="headerlink" title="智能分类"></a>智能分类</h3><p>macOS 会跟据文件类型和标签对桌面的文件进行自动分类整理，从此再也不用担心满桌面都是文件了。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-82.jpg" alt></p>
+<p><img src="https://cdn.sspai.com/2018-06-04-macOS04.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<h3 id="快速查看升级"><a href="#快速查看升级" class="headerlink" title="快速查看升级"></a>快速查看升级</h3><p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-92.jpg" alt></p>
+<p>访达在这次系统上的更新并不多，只是针对图片查看增添了 “图库视图” 功能。通过 “图库视图”，用户可更加便捷快速地浏览到访达文件夹内的图片内容，与此同时功能内部也内置了图片元数据显示窗，用户可以借助数据窗口了解到图片的相关详情，并且可对图片进行快速编辑操作。</p>
+<h3 id="截图-录屏操作-类似iOS"><a href="#截图-录屏操作-类似iOS" class="headerlink" title="截图/录屏操作 - 类似iOS"></a>截图/录屏操作 - 类似iOS</h3><p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-93.jpg" alt></p>
+<p>此次 macOS Mojave 加入了 “系统级” 的截屏功能，用户也可以在截屏后对截屏图片进行简单的标记。不过实际上，目前不少社交软件其实都已经具备了截图 + 标记的相关功能，且在体验上也相当不错。</p>
+<h3 id="安全权限"><a href="#安全权限" class="headerlink" title="安全权限"></a>安全权限</h3><p>当我们在 iOS 系统上打开刚下载的应用程序时，系统会弹出弹窗，提示是否允许程序访问用户信息和手机硬件。而这次苹果也将相关的安全控制策略从 iOS “搬” 到了 macOS 上，当用户打开某个网址或程序时，系统会弹出 “是否允许访问” 的弹窗以获得用户批准。这也可能是为了呼应最近越发严格的隐私政策。</p>
+<h3 id="在-macOS-上运行的几款-iOS-程序"><a href="#在-macOS-上运行的几款-iOS-程序" class="headerlink" title="在 macOS 上运行的几款 iOS 程序"></a>在 macOS 上运行的几款 iOS 程序</h3><p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-84.jpg" alt></p>
+<p>将 iOS 的应用程序搬到 macOS 上运行是不少玩家曾经有过的想法。此次苹果在新版的 macOS 系统上加入了 iOS 端的新闻、股市、家、语音备忘录四个程序，用户可以在桌面系统上通过这几款应用阅读新闻、控制家庭设备等等。</p>
+<p>在发布会的最后，苹果否认了将对 iOS 和 macOS 进行合并的传闻，但考虑到 iOS 平台有非常庞大的应用数量，他们也希望其中的部分应用能来到 macOS。于是苹果在发布会上为大家提前预览了一个准备多年的项目，macOS 将可以使用 iOS 的 UIKit 框架进行开发，以降低开发多平台应用的成本。</p>
+<p><img src="https://cdn.sspai.com/2018-06-04-Screen%20Shot%202018-06-05%20at%203.08.05%20AM.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<p>比如这次 macOS Mojave 中新增的 4 款应用——News、股票、语音备忘录、家庭——均采用了这种新技术。</p>
+<h3 id="全新的-Mac-App-Store"><a href="#全新的-Mac-App-Store" class="headerlink" title="全新的 Mac App Store"></a>全新的 Mac App Store</h3><p><img src="https://cdn.sspai.com/2018-06-04-macOS09.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt></p>
+<p>在 iOS 11 对 Mac App Store 进行了重新设计后，macOS Mojave 也迎来了全新设计的 Mac App Store。新版拥有与 iOS 上 App Store 类似的发现页，里面能看到每日编辑推荐和一些 App 的使用技巧。进入 App 页面后，你可以看到视频预览和与 iOS 类似的评分系统。为了方便用户评分，新版 macOS 还加入了和 iOS 一样的 App 内打分功能。此外，苹果还宣布包括 Office 365 和 Adobe Lightroom CC 在内的一批重量级 App 将在今年稍后登录 Mac App Store。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>是的，这次的 WWDC 只有软件，没有新的电子设备发布，没有新 iPad Pro、没有 iPhone SE2、没有带八代酷睿的新 MacBook，唯一能和“硬件”沾上边的就是一个新的彩虹表带。</p>
+<p><img src="https://images.ifanr.cn/wp-content/uploads/2018/06/WWDC-56.jpg" alt></p>
+<p>时至今日，苹果生态已经日趋完善了，大概苹果的产品经理们也想不出什么石破天惊的功能让大家 wow 一声了，有的只是细节层面的改进。作为看客和用户，也只能接受这样的现实了。</p>
+<p>对了，那个可以四个人一起玩的乐高积木和 AR 应用，倒是可以考虑买来玩一下，不要一边说没有新东西，一边又对新东西视而不见。</p>
+<p>对于 iOS 开发者来说，macOS 将可以使用 iOS 的 UIKit 框架进行开发是一个值得关注的点。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://developer.apple.com/videos/play/wwdc2018/101/" target="_blank" rel="noopener">WWDC 2018 Keynote</a></li>
+<li><a href="https://www.techradar.com/news/apple-wwdc-2018-keynote" target="_blank" rel="noopener">Apple WWDC 2018: what’s new? All the announcements from the keynote</a></li>
+<li><a href="http://www.ifanr.com/1043270" target="_blank" rel="noopener">iOS 加入「防沉迷」，macOS 有了暗色主题，今年的 WWDC 重点都在系统上</a></li>
+<li><a href="https://sspai.com/post/44816" target="_blank" rel="noopener">苹果 WWDC 2018：最全总结看这里，不错过任何重点</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Apple/" rel="tag"># Apple</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/18/Debug/" rel="next" title="聊聊Xcode Debug">
+                <i class="fa fa-chevron-left"></i> 聊聊Xcode Debug
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/06/iOS性能优化/" rel="prev" title="iOS- 性能优化（启动、电量、包体等）">
+                iOS- 性能优化（启动、电量、包体等） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS-12-和-ARKit-2-0"><span class="nav-number">2.</span> <span class="nav-text">iOS 12 和 ARKit 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-12"><span class="nav-number">2.1.</span> <span class="nav-text">iOS 12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARKit-2-0"><span class="nav-number">2.2.</span> <span class="nav-text">ARKit 2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相册优化"><span class="nav-number">2.3.</span> <span class="nav-text">相册优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Siri变得更聪明"><span class="nav-number">2.4.</span> <span class="nav-text">Siri变得更聪明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生应用大更新"><span class="nav-number">2.5.</span> <span class="nav-text">原生应用大更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CarPlay-开放了"><span class="nav-number">2.6.</span> <span class="nav-text">CarPlay 开放了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防手机沉迷-划重点！"><span class="nav-number">2.7.</span> <span class="nav-text">防手机沉迷 - 划重点！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iMessage-和-FeacTime"><span class="nav-number">2.8.</span> <span class="nav-text">iMessage 和 FeacTime</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tvOS"><span class="nav-number">3.</span> <span class="nav-text">tvOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watchOS-5"><span class="nav-number">4.</span> <span class="nav-text">watchOS 5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS-Mojave"><span class="nav-number">5.</span> <span class="nav-text">macOS Mojave</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#夜间模式-动态桌面"><span class="nav-number">5.1.</span> <span class="nav-text">夜间模式 / 动态桌面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智能分类"><span class="nav-number">5.2.</span> <span class="nav-text">智能分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速查看升级"><span class="nav-number">5.3.</span> <span class="nav-text">快速查看升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截图-录屏操作-类似iOS"><span class="nav-number">5.4.</span> <span class="nav-text">截图/录屏操作 - 类似iOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全权限"><span class="nav-number">5.5.</span> <span class="nav-text">安全权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-macOS-上运行的几款-iOS-程序"><span class="nav-number">5.6.</span> <span class="nav-text">在 macOS 上运行的几款 iOS 程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全新的-Mac-App-Store"><span class="nav-number">5.7.</span> <span class="nav-text">全新的 Mac App Store</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
