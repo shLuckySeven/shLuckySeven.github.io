@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo,Node.js,Git,Next,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="开篇：（博客搬迁）论技术博客的重要性   作为一名程序员，我们不但要会敲代码，还要会总（chui）结（niu）学（bi）习（！），每一个过程都是心酸的，那么我们应该定期去把我们的学习过程、工作过程遇到的有趣的、难忘的一些技术经历记录下来，这将对我们以后的开发成长有很大的帮助，最常见的便是技术博客  我最终选取了成本较低的专属域名 + Github Pages + Node.js + Hexo的技术">
+<meta name="keywords" content="Hexo,Node.js,Git,Next">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages配合Hexo搭建个人博客的过程">
+<meta property="og:url" content="http://www.shuhuan.fun/2019/04/07/个人博客搭建（Github Pages + Hexo + Node.js）/index.html">
+<meta property="og:site_name" content="书桓">
+<meta property="og:description" content="开篇：（博客搬迁）论技术博客的重要性   作为一名程序员，我们不但要会敲代码，还要会总（chui）结（niu）学（bi）习（！），每一个过程都是心酸的，那么我们应该定期去把我们的学习过程、工作过程遇到的有趣的、难忘的一些技术经历记录下来，这将对我们以后的开发成长有很大的帮助，最常见的便是技术博客  我最终选取了成本较低的专属域名 + Github Pages + Node.js + Hexo的技术">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-ce02d14576627f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-74785eca40f24662.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-7cf80471385e11c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-81498ca522be5a37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-d5f4e9ce6e95918b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-8474396b572ccd52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-45cc4959aa7b5788.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-6c82f1856f632e2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1707644-e37727849a0f0ade.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-07T15:21:25.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github Pages配合Hexo搭建个人博客的过程">
+<meta name="twitter:description" content="开篇：（博客搬迁）论技术博客的重要性   作为一名程序员，我们不但要会敲代码，还要会总（chui）结（niu）学（bi）习（！），每一个过程都是心酸的，那么我们应该定期去把我们的学习过程、工作过程遇到的有趣的、难忘的一些技术经历记录下来，这将对我们以后的开发成长有很大的帮助，最常见的便是技术博客  我最终选取了成本较低的专属域名 + Github Pages + Node.js + Hexo的技术">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1707644-ce02d14576627f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.shuhuan.fun/2019/04/07/个人博客搭建（Github Pages + Hexo + Node.js）/">
+
+
+
+
+
+  <title>Github Pages配合Hexo搭建个人博客的过程 | 书桓</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">书桓</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">shLuckySeven Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的Blog之路
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            博客时光轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.shuhuan.fun/2019/04/07/个人博客搭建（Github Pages + Hexo + Node.js）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shLuckySeven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="书桓">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Github Pages配合Hexo搭建个人博客的过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T22:54:33+08:00">
+                2019-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">博客搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="开篇：（博客搬迁）"><a href="#开篇：（博客搬迁）" class="headerlink" title="开篇：（博客搬迁）"></a>开篇：（博客搬迁）</h1><p>论技术博客的重要性</p>
+<blockquote>
+<ul>
+<li><p>作为一名程序员，我们不但要会敲代码，还要会总（chui）结（niu）学（bi）习（！），每一个过程都是心酸的，那么我们应该定期去把我们的学习过程、工作过程遇到的有趣的、难忘的一些技术经历记录下来，这将对我们以后的开发成长有很大的帮助，最常见的便是技术博客</p>
+</li>
+<li><p>我最终选取了成本较低的专属域名 + Github Pages + Node.js + Hexo的技术方案来搬迁我的博客，查阅了好多博客和论坛，翻山越岭，将自己的博客搭建起来，比起成本最高的个人服务器+完全样式自定义，我少了服务器和纵深难度较大的样式完全自定义，后期有时间了，再往那个山头翻吧！</p>
+</li>
+</ul>
+</blockquote>
+<p><code>看好多巨佬的博客真的挺酷炫的，就像修仙，我们不能一步到位，慢慢来吧！</code></p>
+<h1 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h1><blockquote>
+<h4 id="1-准备：环境选择和搭建"><a href="#1-准备：环境选择和搭建" class="headerlink" title="1.准备：环境选择和搭建"></a>1.准备：环境选择和搭建</h4><h4 id="2-初长成：配置Hexo主题"><a href="#2-初长成：配置Hexo主题" class="headerlink" title="2.初长成：配置Hexo主题"></a>2.初长成：配置Hexo主题</h4><h4 id="4-总结：这一刻是喜悦的"><a href="#4-总结：这一刻是喜悦的" class="headerlink" title="4.总结：这一刻是喜悦的"></a>4.总结：这一刻是喜悦的</h4></blockquote>
+<h2 id="一、准备"><a href="#一、准备" class="headerlink" title="一、准备"></a>一、准备</h2><h5 id="磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境-那么我们开始前，有4个小可爱，需要了解、安装或者注册"><a href="#磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境-那么我们开始前，有4个小可爱，需要了解、安装或者注册" class="headerlink" title="磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境,那么我们开始前，有4个小可爱，需要了解、安装或者注册:"></a>磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境,那么我们开始前，有4个小可爱，需要了解、安装或者注册:</h5><ul>
+<li>Git:一款免费、开源的分布式版本控制系统</li>
+<li>Node.js:建立在Chrome上的JavaScript运行引擎</li>
+<li>Hexo:Hexo快速、简洁且高效的博客框架</li>
+<li>GitHub:国内一款面向开发者的云端开发平台，提供代码托管，运行空间，质量控制，项目管理等功能</li>
+<li>MacDown：MarkDown编辑神器</li>
+</ul>
+<h3 id="安装-注册-绑定："><a href="#安装-注册-绑定：" class="headerlink" title="安装/注册/绑定："></a>安装/注册/绑定：</h3><p><strong>Git</strong> —-  <a href="https://git-scm.com" target="_blank" rel="noopener">Git官网</a>（安装环境）</p>
+<p>找到Download,安装自己对应的系统版本，系统会自动判定你当前版本，推荐下载，如果没有推荐，那就自己选择吧。具体Git的安装步骤请自行百度</p>
+<p><strong>Node.js</strong> —-  <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js官网</a>（下载安装）</p>
+<p>进入官网后系统依然会判定你的系统并给出稳定推荐版本和尝鲜版。这里我建议下载安装稳定版就可以，下载安装步骤同样省略</p>
+<p><strong>Hexo</strong> —- <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官方文档</a>（安装环境）</p>
+<p>前面我们已经安装了Git、Node.js，然后我们开始使用npm，安装hexo，首先<br>cd到我们想要放置博客本地项目目录的文件夹下，依次执行以下命令：</p>
+<blockquote>
+<p>1.npm install hexo</p>
+<p>2.npm install</p>
+<p>3.npm install hexo-deployer-git</p>
+<p>注意：1.安装失败尝试切换到sudo下尝试；2.记得，不需要hexo init这条指令，因为init要求文件夹必须为空，后续我们讲解到博客搬迁的时候会讲到这个地方的坑</p>
+</blockquote>
+<p>Hexo环境的安装过程，可能会遇到一些坑，到时候根据具体问题，自行百度，基本都可以找到答案，后续我会把环境配置过程中典型的易见的错误和解决办法也更新到博客中（因为我当时碰到的时候忘记了截图😭</p>
+<p><strong>Github</strong> —-  <a href="https://github.com" target="_blank" rel="noopener">Github官网</a>（注册绑定）</p>
+<p>如果有github账号的，直接略过看就行，没有github账号的，老老实实按照步骤看：</p>
+<blockquote>
+<ul>
+<li><p>注册Gituhb账号</p>
+</li>
+<li><p>创建仓库</p>
+</li>
+<li><p>设置Github Pages(选择主题)</p>
+</li>
+<li><p>注册域名并绑定到仓库中（如需要）</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="1-注册Github账号"><a href="#1-注册Github账号" class="headerlink" title="1)注册Github账号"></a>1)注册Github账号</h5><p>注册账号流程略……按照填写即可 </p>
+<h5 id="2-注册Github账号"><a href="#2-注册Github账号" class="headerlink" title="2)注册Github账号"></a>2)注册Github账号</h5><p>新建仓库：点击头像左侧的+号, —&gt;New repository，创建新仓库，如图：<br><img src="https://upload-images.jianshu.io/upload_images/1707644-ce02d14576627f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建仓库.png">   </p>
+<p>仓库命名–博客讲的是博客搭建，所以我们创建仓库的规则是：   </p>
+<blockquote>
+<p>userName.github.io   </p>
+</blockquote>
+<p>这里的userName就是你的github账号名，例如我的github账号名是shLuckySeven</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-74785eca40f24662.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="仓库命名.png"></p>
+<h5 id="3-设置Github-Pages-选择主题"><a href="#3-设置Github-Pages-选择主题" class="headerlink" title="3)设置Github Pages(选择主题)"></a>3)设置Github Pages(选择主题)</h5><p><img src="https://upload-images.jianshu.io/upload_images/1707644-7cf80471385e11c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主题选择和绑定域名"></p>
+<p>选择一个主题，托管在GitHub上的博客就搞定了，例如我的个人博客：<a href="https://shLuckySeven.github.io/就可以访问了,注意：将其中的用户名换成你创建的仓库名" target="_blank" rel="noopener">https://shLuckySeven.github.io/就可以访问了,注意：将其中的用户名换成你创建的仓库名</a>   </p>
+<h5 id="4-注册域名并绑定到仓库中（如需要）"><a href="#4-注册域名并绑定到仓库中（如需要）" class="headerlink" title="4)注册域名并绑定到仓库中（如需要）"></a>4)注册域名并绑定到仓库中（如需要）</h5><p>这时候，你的确可以访问自己博客了，但是我们的博客访问地址是：userName.github.io<br>如需专属域名，接下来，就需要我们去购买域名，配置成自己个性化的域名地址   </p>
+<h5 id="购买域名："><a href="#购买域名：" class="headerlink" title="购买域名："></a>购买域名：</h5><p>购买域名有很多途径，例如阿里云、腾讯云等，这里以阿里云为例，域名操作流程大概分为以下3步：</p>
+<blockquote>
+<ul>
+<li>选择域名   </li>
+<li>购买域名   </li>
+<li>域名解析   </li>
+</ul>
+</blockquote>
+<p>1）选择域名<br>选择你喜欢的域名，这里没事可说的，看自己，不差钱那就随意选，只要别人没注册<br><strong><em>重点提示：</em></strong><br>但是一定要注意的是，选择的域名后缀一定是可以备案的，不然只能是注册保护，无法使用，在购买时，阿里云会有提示信息：<br><img src="https://upload-images.jianshu.io/upload_images/1707644-81498ca522be5a37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="阿里云域名注意事项.png"><br>2）购买域名<br>购买就不多说了，实名认证、创建模板、购买，具体操作百度搜吧，很简单，或者在阿里云平台直接操作也可以<br>3）域名解析 </p>
+<ul>
+<li>添加记录  </li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-d5f4e9ce6e95918b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1-1.png"></p>
+<ul>
+<li>主机记录值填写<br><img src="https://upload-images.jianshu.io/upload_images/1707644-8474396b572ccd52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1-2.png"><br>这里面主要区分两个概念：@ 和 www</li>
+</ul>
+<blockquote>
+<p>@:前缀省略<br>www:正常显示<br>具体说明见截图，说的很清楚，我们解析域名就添加这两条记录值即可   </p>
+</blockquote>
+<p>到这里，我们已经完成了域名解析工作，回到GitHub，根据我上面的那个配置Pages的截图完成域名和GitHub Pages 的绑定即可</p>
+<h2 id="二、初长成"><a href="#二、初长成" class="headerlink" title="二、初长成"></a>二、初长成</h2><p><strong>博客主题配置工作</strong></p>
+<blockquote>
+<p>找到我们之前创建好的本地存放博客项目的文件夹，找到_config.yml文件，打开 _config.yml,查看信息，参考Hexo官方文档，对文件里面的一些注释进行一些简单的修改先，主要配置以下地方：   </p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1707644-45cc4959aa7b5788.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="config.png"><br><img src="https://upload-images.jianshu.io/upload_images/1707644-6c82f1856f632e2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="repo.png"></p>
+<p>这里面介绍几个重要的即可：<br>1.type:一定要配置成git<br>2.repo:写成你自己的博客仓库地址，格式按照我的，把username改成你的即可   </p>
+<p>修改完毕之后，终端cd到你的存放博客项目文件夹下（如果之前cd过，应该一直在这）执行以下命令（按照顺序）：   </p>
+<blockquote>
+<p>hexo g<br>hexo s   </p>
+</blockquote>
+<p>执行完 hexo s之后，控制台会给你输出一个地址<br><img src="https://upload-images.jianshu.io/upload_images/1707644-e37727849a0f0ade.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="local.png"><br>把这个地址，贴到你的浏览器，进行查看，看到啥，你自己乐吧！</p>
+<p>之后如果想发布到远程github上，根据上面我说的博客主题配置，_config.yml文件里的 repo，如果没有问题，执行   </p>
+<blockquote>
+<p>hexo g<br>hexo d   </p>
+</blockquote>
+<p>即可部署到你的github Pages上，现在用你绑定的域名，或者userName.github.io再访问下试试！</p>
+<h2 id="三、总结：这一刻是开心的"><a href="#三、总结：这一刻是开心的" class="headerlink" title="三、总结：这一刻是开心的"></a>三、总结：这一刻是开心的</h2><p>不知不觉又深夜了，到了和大家说晚安的时间，我自己折腾这博客搭建的过程中，踩了好多坑，稍微晚几天，我找时间会把这块内容补进来，实在太困了！<br>每天进步一点点，一个月后，两个月后，你会发现你已经提升了好几个台阶，回头再看，尽是美景！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/Next/" rel="tag"># Next</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/06/KVO讲解/" rel="next" title="最不花里胡哨的KVO博客，一看就懂">
+                <i class="fa fa-chevron-left"></i> 最不花里胡哨的KVO博客，一看就懂
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/16028867?s=460&v=4" alt="shLuckySeven">
+            
+              <p class="site-author-name" itemprop="name">shLuckySeven</p>
+              <p class="site-description motion-element" itemprop="description">我要背着那重重的壳，一步一步的往上爬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shLuckySeven" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="shuuhan329@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c2d50b036179" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开篇：（博客搬迁）"><span class="nav-number">1.</span> <span class="nav-text">开篇：（博客搬迁）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录："><span class="nav-number">2.</span> <span class="nav-text">目录：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-准备：环境选择和搭建"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">1.准备：环境选择和搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-初长成：配置Hexo主题"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2.初长成：配置Hexo主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-总结：这一刻是喜悦的"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">4.总结：这一刻是喜悦的</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#一、准备"><span class="nav-number">2.1.</span> <span class="nav-text">一、准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境-那么我们开始前，有4个小可爱，需要了解、安装或者注册"><span class="nav-number">2.1.0.0.1.</span> <span class="nav-text">磨刀不误砍柴工，开始搭建博客之前，我们必须先选择好方式和环境,那么我们开始前，有4个小可爱，需要了解、安装或者注册:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-注册-绑定："><span class="nav-number">2.1.1.</span> <span class="nav-text">安装/注册/绑定：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-注册Github账号"><span class="nav-number">2.1.1.0.1.</span> <span class="nav-text">1)注册Github账号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-注册Github账号"><span class="nav-number">2.1.1.0.2.</span> <span class="nav-text">2)注册Github账号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-设置Github-Pages-选择主题"><span class="nav-number">2.1.1.0.3.</span> <span class="nav-text">3)设置Github Pages(选择主题)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-注册域名并绑定到仓库中（如需要）"><span class="nav-number">2.1.1.0.4.</span> <span class="nav-text">4)注册域名并绑定到仓库中（如需要）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#购买域名："><span class="nav-number">2.1.1.0.5.</span> <span class="nav-text">购买域名：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、初长成"><span class="nav-number">2.2.</span> <span class="nav-text">二、初长成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、总结：这一刻是开心的"><span class="nav-number">2.3.</span> <span class="nav-text">三、总结：这一刻是开心的</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shLuckySeven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
