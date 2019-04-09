@@ -355,14 +355,14 @@ han: false
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: b3a25c383c67bcb99e76b40a75da99b7
 
 # Duoshuo ShortName
 #duoshuo_shortname:
 
 # Disqus
 disqus:
-  enable: false
+  enable: true
   shortname:
   count: true
 
@@ -533,9 +533,9 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: h2DMxOhVtHBBfkzJYH93VhRH-gzGzoHsz
+  app_key: ANPYtLexVmavnvmQ5Fgnbcld
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId
